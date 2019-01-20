@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script
+src="https://code.jquery.com/jquery-3.3.1.js"
+integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+crossorigin="anonymous"></script>
+<style>
+html, body{
+height: 100%;
+margin: 0px;
+}
+#wrapper > *{
+border: 1px solid lightgrey;
+padding: 10px;
+}
+#wrapper{
+margin: auto;
+display: grid;
+height: 80%;
+max-width: 600px;
+max-height: 300px;
+grid-template-columns: 1fr 1fr;
+grid-template-rows: 4fr 3fr 3fr;
+top: 50%;
+position: relative;
+transform: translateY(-50%);
+}
+#question{
+grid-column: span 2;
+}
+.choice{
+    background:lightblue;
+}
+</style>
+</head>
+<body>
+        <div id="wrapper">
+                <div id = "question">q</div>
+                <div class = "answer">1</div>
+                <div class = "answer">2</div>
+                <div class = "answer">3</div>
+                <div class = "answer">4</div>  
+        </div>
+        <script>
+              var data = [{
+                question : "First Letter?",
+                options :["A", "B", "C", "D"],
+                answer : "A" 
+                },
+                {
+                question : "Second Letter?",
+                options :["A", "B", "C", "D"],
+                answer : "B" 
+                }         
+            ]
+            //-----------fill questions and answer
+            $("#question").text(data[0].question);
+            for (i=0; i<data[0].options.length; i++ ){
+                $(".answer:eq("+i+")").text(data[0].options[i]);
+            }
+
+            //------------handle answer
+            var correctAnswers = 0;
+            var correct = null;
+            var lastAnswer = null;
+                //------------click event for answer
+                    $("#wrapper").click(function(evt){
+                        lastAnswer = $(evt.target).text();
+                        $("#wrapper").children().removeClass("choice");
+                        $(evt.target).addClass("choice");
+                        //---make only last answer highlighted
+                    });
+                //------------next question
+
+        </script>
+</body>
+</html>
