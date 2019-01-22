@@ -67,70 +67,62 @@ grid-column: span 2;
 </style>
 </head>
 <body>
-        <div id="wrapper" class= "answers">
-                <div id = "question">q</div>
-                <div class = "answer">1</div>
-                <div class = "answer">2</div>
-                <div class = "answer">3</div>
-                <div class = "answer">4</div>  
-                <button id="next" class="invisible">Next</button>
-        </div>
-        <script>
-            //----------questions
-            var data = [{
-                question : "First Letter?",
-                options :["A", "B", "C", "D"],
-                answer : "A" 
-                },
-                {
-                question : "Second Letter?",
-                options :["A", "B", "C", "D"],
-                answer : "B" 
-                }         
-            ];
+<div id="wrapper" class= "answers">
+    <div id = "question">q</div>
+    <div class = "answer">1</div>
+    <div class = "answer">2</div>
+    <div class = "answer">3</div>
+    <div class = "answer">4</div>  
+    <button id="next" class="invisible">Next</button>
+</div>
+<script>
+//----------questions
+$.getJSON("data.json", function(data){
+    
+    //-----------fill questions and answer
+    var questionIndex = 0;
+    populateQA();
+
+    
+    
+    function populateQA(){
+        $("#question").text(data[questionIndex].question);
+        for (i=0; i<data[questionIndex].options.length; i++ ){
+            $(".answer:eq("+i+")").text(data[questionIndex].options[i]);
+        }
+    }
+    //------------handle answer
+    var correctAnswers = 0;
+    var correct = null;
+    var lastAnswer = null;
+
+    //------------click event for answer
+    $(".answer").click(function(evt){
+            lastAnswer = $(evt.target).text();
+            $(".answer").removeClass("choice");
+            $(evt.target).addClass("choice");
+            $("#next").removeClass("invisible");
+            //---make only last answer highlighted
+        });
+
+    //------------next question
+    $("#next").click(function(){
+        if (lastAnswer == data[questionIndex].answer) correctAnswers += 1;
+        $(this).addClass("invisible");
+        $(".answer").removeClass("choice");
+        questionIndex += 1;
+        (questionIndex >= data.length) ? getScore() : populateQA();
             
-            //-----------fill questions and answer
-            var questionIndex = 0;
-            populateQA();
+        })
+    //------------get score
+    function getScore(){
+        var answer = correctAnswers == 1 ? "answer":"answers";
+        $("#wrapper").children().remove();
+        $("#wrapper").removeClass("answers").addClass("result").append("<div class='score'>You got " +correctAnswers+ " correct "+answer+" out of "+data.length+".</div>");
 
-            function populateQA(){
-                $("#question").text(data[questionIndex].question);
-                for (i=0; i<data[questionIndex].options.length; i++ ){
-                    $(".answer:eq("+i+")").text(data[questionIndex].options[i]);
-                }
-            }
-            //------------handle answer
-            var correctAnswers = 0;
-            var correct = null;
-            var lastAnswer = null;
+    }
 
-            //------------click event for answer
-            $(".answer").click(function(evt){
-                    lastAnswer = $(evt.target).text();
-                    $(".answer").removeClass("choice");
-                    $(evt.target).addClass("choice");
-                    $("#next").removeClass("invisible");
-                    //---make only last answer highlighted
-                });
-
-            //------------next question
-            $("#next").click(function(){
-                if (lastAnswer == data[questionIndex].answer) correctAnswers += 1;
-                $(this).addClass("invisible");
-                $(".answer").removeClass("choice");
-                questionIndex += 1;
-                (questionIndex >= data.length) ? getScore() : populateQA();
-                    
-                })
-            //------------get score
-            function getScore(){
-                var answer = correctAnswers == 1 ? "answer":"answers";
-                $("#wrapper").children().remove();
-                $("#wrapper").removeClass("answers").addClass("result").append("<div class='score'>You got " +correctAnswers+ " correct "+answer+" out of "+data.length+".</div>");
-
-            }
-
-
-        </script>
+});
+</script>
 </body>
 </html>
