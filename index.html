@@ -10,7 +10,7 @@ html, body{
 height: 100%;
 margin: 0px;
 }
-#wrapper > *{
+.answer, #question{
 border: 1px solid lightgrey;
 padding: 10px;
 }
@@ -51,6 +51,7 @@ grid-column: span 2;
 .score{
     align-self: center;
     justify-self: center; 
+    border: none;
 }
 </style>
 </head>
@@ -107,10 +108,9 @@ grid-column: span 2;
                 })
             //------------get score
             function getScore(){
-                console.log(correctAnswers);
+                var answer = correctAnswers == 1 ? "answer":"answers";
                 $("#wrapper").children().remove();
-                $("#wrapper").removeClass("answers").addClass("result").append("<div id='class'>" +correctAnswers+ "</div>");
-                $
+                $("#wrapper").removeClass("answers").addClass("result").append("<div class='score'>You got " +correctAnswers+ " correct "+answer+" out of "+data.length+".</div>");
 
             }
 
