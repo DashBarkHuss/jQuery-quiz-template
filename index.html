@@ -76,6 +76,7 @@ grid-column: span 2;
                 <button id="next" class="invisible">Next</button>
         </div>
         <script>
+            //----------questions
             var questionIndex = 0;
               var data = [{
                 question : "First Letter?",
@@ -88,8 +89,10 @@ grid-column: span 2;
                 answer : "B" 
                 }         
             ]
-            populateQA();
+            
             //-----------fill questions and answer
+            populateQA();
+
             function populateQA(){
                 $("#question").text(data[questionIndex].question);
                 for (i=0; i<data[questionIndex].options.length; i++ ){
@@ -100,21 +103,23 @@ grid-column: span 2;
             var correctAnswers = 0;
             var correct = null;
             var lastAnswer = null;
-                //------------click event for answer
-                $(".answer").click(function(evt){
-                        lastAnswer = $(evt.target).text();
-                        $(".answer").removeClass("choice");
-                        $(evt.target).addClass("choice");
-                        $("#next").removeClass("invisible");
-                        //---make only last answer highlighted
-                    });
-                //------------next question
-                $("#next").click(function(){
-                    if (lastAnswer == data[questionIndex].answer) correctAnswers += 1;
-                    $(this).addClass("invisible");
+
+            //------------click event for answer
+            $(".answer").click(function(evt){
+                    lastAnswer = $(evt.target).text();
                     $(".answer").removeClass("choice");
-                    questionIndex += 1;
-                    (questionIndex >= data.length) ? getScore() : populateQA();
+                    $(evt.target).addClass("choice");
+                    $("#next").removeClass("invisible");
+                    //---make only last answer highlighted
+                });
+
+            //------------next question
+            $("#next").click(function(){
+                if (lastAnswer == data[questionIndex].answer) correctAnswers += 1;
+                $(this).addClass("invisible");
+                $(".answer").removeClass("choice");
+                questionIndex += 1;
+                (questionIndex >= data.length) ? getScore() : populateQA();
                     
                 })
             //------------get score
