@@ -10,7 +10,7 @@ Replace the dummy data in the **data.json** file with your questions and answers
 
 ![ScreenShot](docs/screenshot_data.png)
 
-1. Put your question in the 'question' property in double quotes.
+1. Put your first question in the 'question' property in double quotes.
 2. Put your multiple choice answers in the 'options' property, each in double quotes separted by commas within the square brackets.
 3. Put the correct answer in the "answer" property in double quotes. It must match one of the options exactly.
 4. Add another question by repeating steps 1-3. Each question object should be within curly brackets, separated by a comma. The entire set of questions ahould be within square brackets.
