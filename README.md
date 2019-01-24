@@ -4,7 +4,7 @@ A quiz template using jQuery, Javascript, JSON, CSS, and HTML
 ## How To Use
 This project is a starting point for anyone that wants to make a responive quiz. 
 
-###Put your Own Questions In
+### Put your Own Questions In
 
 Replace the dummy data in the **data.json** file with your questions and answers.
 
